@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Majida Hijab Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --burgundy:#5a1a1a;
+    --dark:#3d0f0f;
+    --gold:#d4af37;
+    --white:#f8f8f8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--burgundy);color:var(--white);font-family:'Poppins',sans-serif}
+
+/* LOGIN */
+#loginBox{position:fixed;inset:0;background:var(--burgundy);display:flex;justify-content:center;align-items:center;z-index:999}
+.login-card{background:var(--dark);padding:2.5rem;width:320px;border-radius:14px;text-align:center;border:1px solid var(--gold)}
+.login-card h2{font-family:'Playfair Display';color:var(--gold)}
+.login-card input{width:100%;padding:10px;border-radius:8px;border:none;margin:1rem 0}
+.login-card button{width:100%;padding:12px;background:var(--gold);border:none;border-radius:8px;font-weight:bold}
+
+/* HEADER */
+header{text-align:center;padding:1.5rem;border-bottom:1px solid rgba(255,255,255,.2)}
+header h1{font-family:'Playfair Display';color:var(--gold)}
+
+/* NAV */
+nav{display:flex;justify-content:center;gap:30px;padding:14px;background:var(--dark);position:sticky;top:0}
+nav button{background:none;border:none;color:white;font-size:16px;cursor:pointer}
+nav button:hover{color:var(--gold)}
+
+/* SEARCH */
+.search-box{max-width:1200px;margin:20px auto;display:flex;gap:10px;padding:0 1rem}
+.search-box input,.search-box select{flex:1;padding:12px;border-radius:8px;border:none}
+
+/* SECTION */
+section{display:none}
+section.active{display:block}
+
+/* PRODUK */
+.container{max-width:1200px;margin:2rem auto;padding:1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem}
+.product{background:var(--dark);border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.15)}
+.product img{width:100%;height:320px;object-fit:cover}
+.product-content{padding:1.3rem}
+.price{color:var(--gold);font-weight:bold}
+.badge{color:var(--gold);font-size:14px}
+select,input[type=number]{width:100%;padding:10px;border-radius:8px;border:none;margin:6px 0}
+.buy-btn{width:100%;padding:12px;border:2px solid var(--gold);background:none;color:var(--gold);border-radius:8px;font-weight:bold}
+.buy-btn:hover{background:var(--gold);color:var(--dark)}
+
+/* PROFIL */
+.profile,.location,.checkout{max-width:800px;margin:2rem auto;background:var(--dark);padding:2rem;border-radius:16px;border:1px solid var(--gold)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1rem}
+.gallery img{width:100%;border-radius:12px}
+
+/* CART */
+.cart-btn{position:fixed;bottom:20px;right:20px;background:var(--gold);color:var(--dark);padding:14px 22px;border-radius:50px;font-weight:bold}
+.checkout{display:none}
+textarea{width:100%;padding:10px;border-radius:8px;border:none;margin-top:10px}
+
+footer{text-align:center;padding:1.5rem;opacity:.7}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginBox">
+  <div class="login-card">
+    <h2>Majida Hijab</h2>
+    <input id="nickname" placeholder="Nama Panggilan">
+    <button onclick="login()">Masuk</button>
+  </div>
+</div>
+
+<header>
+  <h1>Majida Hijab</h1>
+  <p id="welcomeText"></p>
+</header>
+
+<nav>
+  <button onclick="showTab('beranda')">Beranda</button>
+  <button onclick="showTab('profil')">Profil</button>
+  <button onclick="showTab('lokasi')">Lokasi</button>
+</nav>
+
+<!-- SEARCH -->
+<div class="search-box">
+  <input id="searchInput" placeholder="Cari gamis...">
+  <select id="filterSelect">
+    <option value="all">Semua Warna</option>
+    <option>Hitam</option><option>Putih</option><option>Burgundy</option>
+    <option>Navy</option><option>Coksu</option><option>Milo</option>
+    <option>Abu</option><option>Denim</option>
+  </select>
+</div>
+
+<!-- BERANDA -->
+<section id="beranda" class="active">
+  <div class="container" id="produk"></div>
+</section>
+
+<!-- PROFIL -->
+<section id="profil">
+  <div class="profile">
+    <h2>Profil Majida Hijab</h2>
+    <p>Brand gamis premium dengan desain elegan, nyaman dan syar’i.</p>
+    <div class="gallery">
+      <img src="https://via.placeholder.com/400x500/5a1a1a/ffffff?text=Majida+1">
+      <img src="https://via.placeholder.com/400x500/3d0f0f/ffffff?text=Majida+2">
+      <img src="https://via.placeholder.com/400x500/d4af37/3d0f0f?text=Majida+3">
+    </div>
+  </div>
+</section>
+
+<!-- LOKASI -->
+<section id="lokasi">
+  <div class="location">
+    <h2>Lokasi Toko</h2>
+    <p>
+7°19'45.9"S 108°08'10.3"E<br>
+Desa/Kecamatan sesuai lokasi Anda
+</p>
+
+<a href="https://www.google.com/maps?q=-7.329417,108.136194"
+   target="_blank"
+   style="color:var(--gold)">
+Buka Lokasi di Google Maps
+</a>
+
+
+<div class="cart-btn" onclick="openCheckout()">🛒 (<span id="cartCount">0</span>)</div>
+
+<div class="checkout" id="checkoutBox">
+  <h3>Checkout</h3>
+  <div id="orderList"></div>
+  <p><strong>Total: Rp <span id="totalPrice">0</span></strong></p>
+  <textarea id="address" placeholder="Alamat lengkap"></textarea>
+  <button onclick="checkout()">Kirim ke WhatsApp</button>
+</div>
+
+<footer>© 2026 Majida Hijab</footer>
+
+<script>
+const products=[
+{nama:"Gamis Hitam",harga:195000,warna:"Hitam",best:true,img:"https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/96/MTA-157533206/brd-47308_fame-aisyah-gamis-hitam-detail-brokat-ruffle-terbaru-9911181_full01-ef9ac936.jpg"},
+{nama:"Gamis Putih",harga:185000,warna:"Putih",best:false,img:"https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/103/MTA-157528471/brd-47308_fame-alina-gamis-putih-detail-brokat-terbaru-9911177_full06-cb1d801c.jpg"},
+{nama:"Gamis Burgundy",harga:175000,warna:"Burgundy",best:true,img:"https://cdn0-production-images-kly.akamaized.net/yBVJb4IqJIlPykFUVxjWaJFi-Cg=/500x667/smart/filters:quality(75):strip_icc()/kly-media-production/medias/5281062/original/017011200_1752308442-ChatGPT_Image_Jul_12__2025__03_04_47_PM.jpg"},
+{nama:"Gamis Navy",harga:200000,warna:"Navy",best:false,img:"https://elzatta.com/cdn/shop/products/GamisSatinLenganPleatsNavy_2.png?v=1681360559"},
+{nama:"Gamis Coksu",harga:190000,warna:"Coksu",best:false,img:"https://img.lazcdn.com/g/p/90be625cda976dd929aa73035ab0d3ec.jpg"},
+{nama:"Gamis Milo",harga:180000,warna:"Milo",best:true,img:"https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//94/MTA-43427632/fame_fame_gamis_9911109_milo_full01_oznp2gfz.jpg"},
+{nama:"Gamis Abu Muda",harga:210000,warna:"Abu",best:false,img:"https://www.hijup.com/magazine/wp-content/uploads/2023/10/772e0128-gamis-polos-zipper-depan-abu-abu.jpeg"},
+{nama:"Gamis Denim",harga:205000,warna:"Denim",best:false,img:"https://elzatta.com/cdn/shop/products/Untitled-2_0704bcfe.png"}
+];
+
+let user="",cart=[];
+
+function login(){
+  user=nickname.value;
+  if(!user) return alert("Isi nama!");
+  welcomeText.innerText="Assalamu'alaikum, "+user;
+  loginBox.style.display="none";
+  renderProducts(products);
+}
+
+function renderProducts(list){
+  produk.innerHTML="";
+  list.forEach(p=>{
+    produk.innerHTML+=`
+    <div class="product">
+      <img src="${p.img}">
+      <div class="product-content">
+        ${p.best?'<div class="badge">⭐ Best Seller</div>':''}
+        <h3>${p.nama}</h3>
+        <p class="price">Rp ${p.harga.toLocaleString()}</p>
+        <select><option>S</option><option>M</option><option>L</option><option>XL</option></select>
+        <input type="number" min="1" value="1">
+        <button class="buy-btn" onclick="add('${p.nama}',${p.harga},this)">Tambah</button>
+      </div>
+    </div>`;
+  });
+}
+
+function add(n,h,b){
+  const qty=b.previousElementSibling.value;
+  const size=b.previousElementSibling.previousElementSibling.value;
+  cart.push({n,h,qty,size});
+  cartCount.innerText=cart.length;
+}
+
+function openCheckout(){
+  let t=0,l="";
+  cart.forEach((i,n)=>{l+=`${n+1}. ${i.n} (${i.size}) x${i.qty}<br>`;t+=i.h*i.qty});
+  orderList.innerHTML=l;
+  totalPrice.innerText=t.toLocaleString();
+  checkoutBox.style.display="block";
+}
+
+function checkout(){
+  let msg=`Halo Admin Majida Hijab\nNama: ${user}\nAlamat: ${address.value}\n\nPesanan:\n`;
+  cart.forEach(i=>msg+=`${i.n} (${i.size}) x${i.qty}\n`);
+  window.open(`https://wa.me/6281224926077?text=${encodeURIComponent(msg)}`);
+}
+
+function showTab(id){
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+searchInput.oninput=filterProduk;
+filterSelect.onchange=filterProduk;
+function filterProduk(){
+  const s=searchInput.value.toLowerCase();
+  const f=filterSelect.value;
+  renderProducts(products.filter(p=>(p.nama.toLowerCase().includes(s))&&(f==="all"||p.warna===f)));
+}
+</script>
+
+</body>
+</html>
